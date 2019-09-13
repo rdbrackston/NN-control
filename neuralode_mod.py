@@ -51,12 +51,12 @@ class NeuralODE:
                 states.append(tensors)
 
         with tf.name_scope("forward"):
-            t0 = tf.to_float(self._t[0])
+            t0 = tf.cast(self._t[0],tf.float32)
             state = [t0, inputs]
             _append_state(state)
             for dt in self._deltas_t:
                 state = self._solver(
-                    func=_forward_dynamics, dt=tf.to_float(dt), state=state
+                    func=_forward_dynamics, dt=tf.cast(dt,tf.float32), state=state
                 )
                 _append_state(state)
 
