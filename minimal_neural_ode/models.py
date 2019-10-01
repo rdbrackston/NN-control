@@ -19,11 +19,12 @@ class oscillator_sde(tf.keras.Model):
         return (tf.matmul(self.A,y), tf.cast([[0.0],[0.5]],tf.float32))
 
 
-"""
-Oscillator with controller defined by dense sequential neural network.
-Suitable for use with batch inputs.
-"""
+
 class oscillator_NNcontrol(tf.keras.Model):
+    """
+    Oscillator with controller defined by dense sequential neural network.
+    Suitable for use with batch inputs.
+    """
     
     def __init__(self):
         super(oscillator_NNcontrol, self).__init__()
@@ -42,11 +43,12 @@ class oscillator_NNcontrol(tf.keras.Model):
         return dy
 
 
-"""
-Oscillator with controller defined by dense sequential neural network.
-Suitable for use with batch inputs.
-"""
+
 class oscillator_NNcontrol_sde(tf.keras.Model):
+    """
+    Oscillator with controller defined by dense sequential neural network.
+    Suitable for use with batch inputs.
+    """
     
     def __init__(self):
         super(oscillator_NNcontrol_sde, self).__init__()
