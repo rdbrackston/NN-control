@@ -63,8 +63,9 @@ class oscillator_NNcontrol_sde(tf.keras.Model):
         free = tf.matmul(self.A, y)
         con = tf.concat([tf.zeros(con.shape),con],1)
         con = tf.reshape(con, [-1,2,1]) # Expand to match dimensions
-        dy = tf.add(free, con)
-        return (dy, tf.cast([[0.0],[0.5]],tf.float32))
+        f = tf.add(free, con)
+        g = tf.tile(tf.cast([[[0.0],[0.5]]],tf.float32),[tf.shape(y)[0],1,1])
+        return (f, g)
 
 
 # Oscillator with controller defined by neural network
@@ -99,5 +100,7 @@ class oscillator_linear_control_sde(tf.keras.Model):
         free = tf.matmul(self.A, y)
         con = tf.concat([tf.zeros(con.shape),con],1)
         con = tf.reshape(con, [-1,2,1]) # Expand to match dimensions
-        dy = tf.add(free, con)
-        return (dy, tf.cast([[0.0],[0.5]],tf.float32))
+        f = tf.add(free, con)
+        g = tf.tile(tf.cast([[[0.0],[0.5]]],tf.float32),[tf.shape(y)[0],1,1])
+        return (f, g)
+
