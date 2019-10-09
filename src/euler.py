@@ -1,7 +1,7 @@
 import tensorflow as tf
 from copy import deepcopy
 
-def fwd(f,y0,tf):
+def fwd(mdl,y0,tf):
     t = 0
     h =0.01
     y = deepcopy(y0)
@@ -9,13 +9,13 @@ def fwd(f,y0,tf):
     while t <= tf:
         traj.append(deepcopy(y))
 #         print(y)
-        dy = f.forward(0, y)
+        dy = mdl.forward(0, y)
         t += h
         y += h * dy
     return tf.stack(traj)
 
 
-def fwd_tlist(f,y0,tlist,step):
+def fwd_tlist(mdl,y0,tlist,step):
     t = 0
     h = step
     y = 1*y0
@@ -23,7 +23,7 @@ def fwd_tlist(f,y0,tlist,step):
     
     t_ind = 0
     while t < tlist[-1]:
-        dy = f.forward(0, y)
+        dy = mdl.forward(0, y)
         t += h
         y = y + h * dy
         
@@ -39,10 +39,17 @@ def fwd_sde_tlist(mdl,y0,tlist,step):
     rtdt = tf.sqrt(step)
     y = 1*y0
     traj =[]
+
+    # Predefine g for additive noise
+    g = tf.cast([[0.0], [0.5]], tf.float32)
+    if tf.shape(tf.shape(y))[0] > 2: # Cater for batch inputs
+        g = tf.reshape(g,[-1,2,1])
+        g = tf.tile(g,[tf.shape(y)[0],1,1])
     
     t_ind = 0
     while t < tlist[-1]:
-        f,g = mdl.forward(t, y)
+        # f,g = mdl.forward(t, y)
+        f = mdl.forward(t,y)
         dW = tf.random.normal(tf.shape(g))*rtdt
         t += dt
         y += f*dt + g*dW
