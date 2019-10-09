@@ -1,7 +1,7 @@
 import tensorflow as tf
 from copy import deepcopy
 
-def euler_self(f,y0,tf):
+def fwd(f,y0,tf):
     t = 0
     h =0.01
     y = deepcopy(y0)
@@ -15,7 +15,7 @@ def euler_self(f,y0,tf):
     return tf.stack(traj)
 
 
-def euler_self_tlist(f,y0,tlist,step):
+def fwd_tlist(f,y0,tlist,step):
     t = 0
     h = step
     y = 1*y0
@@ -33,7 +33,7 @@ def euler_self_tlist(f,y0,tlist,step):
     return tf.stack(traj)
 
 
-def euler_sde(mdl,y0,tlist,step):
+def fwd_sde_tlist(mdl,y0,tlist,step):
     t = 0
     dt = step
     rtdt = tf.sqrt(step)
