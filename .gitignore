@@ -1,2 +1,9 @@
-# Ignore contents of __pycache__ directory containing .pyc files
+# Ignore compiled python files, usually within __pycache__/
 __pycache__/
+*.py[cod]
+
+# OSX specific files
+.DS_Store
+
+# Jupyter notebook generated files
+.ipynb_checkpoints
