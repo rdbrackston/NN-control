@@ -3,7 +3,7 @@ keras = tf.keras
 from keras import initializers
 
 # oscillator as ODE within Keras
-class oscillator(tf.keras.Model):
+class Oscillator(tf.keras.Model):
     def __init__(self):
         self.A = tf.cast([[0, 1],[-1, -0.1]], tf.float32)
 
@@ -12,7 +12,7 @@ class oscillator(tf.keras.Model):
 
 
 # oscillator as ODE within Keras
-class oscillator_sde(tf.keras.Model):
+class OscillatorSDE(tf.keras.Model):
     def __init__(self):
         self.A = tf.cast([[0, 1],[-1, -0.1]], tf.float32)
 
@@ -21,14 +21,14 @@ class oscillator_sde(tf.keras.Model):
 
 
 
-class oscillator_NNcontrol(tf.keras.Model):
+class OscillatorNNControl(tf.keras.Model):
     """
     Oscillator with controller defined by dense sequential neural network.
     Suitable for use with batch inputs.
     """
     
     def __init__(self):
-        super(oscillator_NNcontrol, self).__init__()
+        super(OscillatorNNControl, self).__init__()
         self.K = keras.Sequential()
         self.K.add(keras.layers.Dense(50, activation="tanh", input_shape=(2,)))
         self.K.add(keras.layers.Dense(1))
@@ -45,14 +45,14 @@ class oscillator_NNcontrol(tf.keras.Model):
 
 
 
-class oscillator_NNcontrol_sde(tf.keras.Model):
+class OscillatorNNControlSDE(tf.keras.Model):
     """
     Oscillator with controller defined by dense sequential neural network.
     Suitable for use with batch inputs.
     """
     
     def __init__(self):
-        super(oscillator_NNcontrol_sde, self).__init__()
+        super(OscillatorNNControlSDE, self).__init__()
         self.K = keras.Sequential()
         self.K.add(keras.layers.Dense(50, activation="tanh", input_shape=(2,)))
         self.K.add(keras.layers.Dense(1))
@@ -70,10 +70,10 @@ class oscillator_NNcontrol_sde(tf.keras.Model):
 
 
 # Oscillator with controller defined by neural network
-class oscillator_linear_control(tf.keras.Model):
+class OscillatorLinearControl(tf.keras.Model):
     
     def __init__(self):
-        super(oscillator_linear_control, self).__init__()
+        super(OscillatorLinearControl, self).__init__()
         self.linear = keras.layers.Dense(1, input_shape=(2,), kernel_initializer=initializers.random_normal(stddev=0.01))
 #         self.linear = keras.layers.Dense(1, input_shape=(2,), kernel_initializer=keras.initializers.Constant(value=[-23,-10]))
         self.A = tf.cast([[0, 1],[-1, -0.1]],tf.float32)
@@ -89,10 +89,10 @@ class oscillator_linear_control(tf.keras.Model):
 
 
 # Oscillator with controller defined by neural network
-class oscillator_linear_control_sde(tf.keras.Model):
+class OscillatorLinearControlSDE(tf.keras.Model):
     
     def __init__(self):
-        super(oscillator_linear_control_sde, self).__init__()
+        super(OscillatorLinearControlSDE, self).__init__()
 #         self.linear = keras.layers.Dense(1, input_shape=(2,))
         self.linear = keras.layers.Dense(1, input_shape=(2,), kernel_initializer=initializers.random_normal(stddev=0.01))
         self.A = tf.cast([[0, 1],[-1, -0.1]],tf.float32)
