@@ -7,7 +7,7 @@ from euler import fwd_tlist, fwd_sde_tlist
 def gradient_update(mdl, slvr, opt, btch_y0, t_points):
     with tf.GradientTape() as g:
         
-        y_points = slvr(mdl, btch_y0, t_points, 1e-1)
+        y_points = slvr(mdl, btch_y0, t_points, 1e-2)
         loss = tf.reduce_mean(tf.math.square(y_points), axis=0) # Across time
         loss = tf.reduce_mean(loss, axis=0) # Across batches
     
