@@ -51,6 +51,7 @@ def fwd_sde_tlist(mdl,y0,tlist,step):
         y = tf.reshape(y0, [-1,n,1])
     else:
         n = tf.shape(y0)[1]
+        y = deepcopy(y0)
 
     # Predefine g for additive noise at final state
     g = tf.zeros([1,n-1,1])
