@@ -18,12 +18,18 @@ def fwd(mdl,y0,tf):
 def fwd_tlist(mdl,y0,tlist,step):
     t = 0
     h = step
-    y = 1*y0
     traj =[]
+
+    # Transform to batch inputs for NN compatibility
+    if tf.shape(tf.shape(y0))[0] < 3:
+        n = tf.size(y0)
+        y = tf.reshape(y0, [-1,n,1])
+    else:
+        y = deepcopy(y0)
     
     t_ind = 0
     while t < tlist[-1]:
-        dy = mdl.forward(0, y)
+        dy = mdl.forward(t, y)
         t += h
         y = y + h * dy
         
@@ -37,14 +43,19 @@ def fwd_sde_tlist(mdl,y0,tlist,step):
     t = 0
     dt = step
     rtdt = tf.sqrt(step)
-    y = 1*y0
     traj =[]
 
-    # Predefine g for additive noise
-    g = tf.cast([[0.0], [0.5]], tf.float32)
-    if tf.shape(tf.shape(y))[0] > 2: # Cater for batch inputs
-        g = tf.reshape(g,[-1,2,1])
-        g = tf.tile(g,[tf.shape(y)[0],1,1])
+    # Transform to batch inputs for NN compatibility
+    if tf.shape(tf.shape(y0))[0] < 3:
+        n = tf.size(y0)
+        y = tf.reshape(y0, [-1,n,1])
+    else:
+        n = tf.shape(y0)[1]
+
+    # Predefine g for additive noise at final state
+    g = tf.zeros([1,n-1,1])
+    g = tf.concat([g, tf.cast([[[0.5]]],tf.float32)],1)
+    g = tf.tile(g,[tf.shape(y)[0],1,1])
     
     t_ind = 0
     while t < tlist[-1]:
@@ -58,3 +69,4 @@ def fwd_sde_tlist(mdl,y0,tlist,step):
             traj.append(1*y)
             t_ind += 1
     return tf.stack(traj)
+
