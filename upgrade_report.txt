@@ -1,0 +1,53 @@
+TensorFlow 2.0 Upgrade Script
+-----------------------------
+Converted 4 files
+Detected 0 issues that require attention
+--------------------------------------------------------------------------------
+================================================================================
+Detailed log follows:
+
+================================================================================
+================================================================================
+Input tree: 'src/'
+================================================================================
+--------------------------------------------------------------------------------
+Processing file 'src/models.py'
+ outputting to 'src_v2/models.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'src/utilities.py'
+ outputting to 'src_v2/utilities.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'src/training.py'
+ outputting to 'src_v2/training.py'
+--------------------------------------------------------------------------------
+
+11:15: INFO: Added keywords to args of function 'tf.reduce_mean'
+12:15: INFO: Added keywords to args of function 'tf.reduce_mean'
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'src/euler.py'
+ outputting to 'src_v2/euler.py'
+--------------------------------------------------------------------------------
+
+24:7: INFO: Added keywords to args of function 'tf.shape'
+24:16: INFO: Added keywords to args of function 'tf.shape'
+25:12: INFO: Added keywords to args of function 'tf.size'
+49:7: INFO: Added keywords to args of function 'tf.shape'
+49:16: INFO: Added keywords to args of function 'tf.shape'
+50:12: INFO: Added keywords to args of function 'tf.size'
+53:12: INFO: Added keywords to args of function 'tf.shape'
+59:19: INFO: Added keywords to args of function 'tf.shape'
+65:30: INFO: Added keywords to args of function 'tf.shape'
+--------------------------------------------------------------------------------
+
