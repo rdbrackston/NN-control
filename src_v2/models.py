@@ -72,7 +72,7 @@ class OscillatorLinearControl(tf.keras.Model):
 
     def __init__(self):
         super(OscillatorLinearControl, self).__init__()
-        self.linear = keras.layers.Dense(1, input_shape=(2,), kernel_initializer=keras.initializers.RandomNormal(stddev=0.01))
+        self.linear = keras.layers.Dense(1, input_shape=(2,), kernel_initializer=keras.initializers.RandomNormal(stddev=0.02))
 #         self.linear = keras.layers.Dense(1, input_shape=(2,), kernel_initializer=keras.initializers.Constant(value=[-23,-10]))
         self.A = tf.cast([[0, 1],[-1, -0.1]],tf.float32)
 
