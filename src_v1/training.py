@@ -8,8 +8,8 @@ def gradient_update(mdl, slvr, opt, btch_y0, t_points):
     with tf.GradientTape() as g:
         
         y_points = slvr(mdl, btch_y0, t_points, 1e-2)
-        loss = tf.reduce_mean(input_tensor=tf.math.square(y_points), axis=0) # Across time
-        loss = tf.reduce_mean(input_tensor=loss, axis=0) # Across batches
+        loss = tf.reduce_mean(tf.math.square(y_points), axis=0) # Across time
+        loss = tf.reduce_mean(loss, axis=0) # Across batches
     
     gradients = g.gradient(loss, mdl.weights)  # tensorflow gradient computation
     opt.apply_gradients(zip(gradients, mdl.weights))
